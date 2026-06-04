@@ -491,4 +491,5 @@ training:
     min: 3.0e-07
   submodules_to_freeze: []
   recompile_limit: 32
+cd /global/u1/b/bhuang95/sorc/fromTim/nested-eagle-era5pretraining/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/
 config_validation: true
