@@ -1,0 +1,297 @@
++ module load conda
++ '[' -z '' ']'
++ case "$-" in
++ __lmod_sh_dbg=x
++ '[' -n x ']'
++ set +x
+Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output
+Shell debugging restarted
++ unset __lmod_sh_dbg
++ return 0
++ module load nccl/2.21.5
++ '[' -z '' ']'
++ case "$-" in
++ __lmod_sh_dbg=x
++ '[' -n x ']'
++ set +x
+Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output
+Shell debugging restarted
++ unset __lmod_sh_dbg
++ return 0
++ conda activate eagle
++ local cmd=activate
++ case "$cmd" in
++ __conda_activate activate eagle
++ '[' -n '' ']'
++ local ask_conda
+++ PS1=
+++ __conda_exe shell.posix activate eagle
+++ '[' -n '' ']'
+++ /global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda shell.posix activate eagle
++ ask_conda='export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+PS1='\''(eagle) '\''
+export PATH='\''/global/homes/b/bhuang95/.conda/envs/eagle/bin:/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/condabin:/opt/nersc/pe/bin:/global/common/software/nersc/bin:/global/common/software/nersc9/darshan/default/bin:/global/common/software/nersc9/sqs/2.0/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/compute-sanitizer:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/libnvvp:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Compute:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Systems/bin:/opt/cray/pe/perftools/25.09.0/bin:/opt/cray/pe/papi/7.2.0.2/bin:/opt/cray/pe/craype/2.7.35/bin:/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/bin:/opt/cray/pe/mpich/9.0.1/bin:/opt/cray/pe/gcc-native/14/bin:/opt/cray/libfabric/1.22.0/bin:/global/homes/b/bhuang95/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin'\''
+export CONDA_PREFIX='\''/global/homes/b/bhuang95/.conda/envs/eagle'\''
+export CONDA_SHLVL='\''1'\''
+export CONDA_DEFAULT_ENV='\''eagle'\''
+export CONDA_PROMPT_MODIFIER='\''(eagle) '\''
+export CONDA_EXE='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda'\''
+export _CONDA_EXE='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda'\''
+export CONDA_PYTHON_EXE='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/python'\''
+export _CONDA_ROOT='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1'\''
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/esmf-activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/esmpy-activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/libxml2-split_activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/openmpi_activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/ucx-activate.sh"'
++ eval 'export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+PS1='\''(eagle) '\''
+export PATH='\''/global/homes/b/bhuang95/.conda/envs/eagle/bin:/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/condabin:/opt/nersc/pe/bin:/global/common/software/nersc/bin:/global/common/software/nersc9/darshan/default/bin:/global/common/software/nersc9/sqs/2.0/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/compute-sanitizer:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/libnvvp:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Compute:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Systems/bin:/opt/cray/pe/perftools/25.09.0/bin:/opt/cray/pe/papi/7.2.0.2/bin:/opt/cray/pe/craype/2.7.35/bin:/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/bin:/opt/cray/pe/mpich/9.0.1/bin:/opt/cray/pe/gcc-native/14/bin:/opt/cray/libfabric/1.22.0/bin:/global/homes/b/bhuang95/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin'\''
+export CONDA_PREFIX='\''/global/homes/b/bhuang95/.conda/envs/eagle'\''
+export CONDA_SHLVL='\''1'\''
+export CONDA_DEFAULT_ENV='\''eagle'\''
+export CONDA_PROMPT_MODIFIER='\''(eagle) '\''
+export CONDA_EXE='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda'\''
+export _CONDA_EXE='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda'\''
+export CONDA_PYTHON_EXE='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/python'\''
+export _CONDA_ROOT='\''/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1'\''
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/esmf-activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/esmpy-activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/libxml2-split_activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/openmpi_activate.sh"
+. "/global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/ucx-activate.sh"'
+++ export _CE_M=
+++ _CE_M=
+++ export _CE_CONDA=
+++ _CE_CONDA=
+++ PS1='(eagle) '
+++ export PATH=/global/homes/b/bhuang95/.conda/envs/eagle/bin:/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/condabin:/opt/nersc/pe/bin:/global/common/software/nersc/bin:/global/common/software/nersc9/darshan/default/bin:/global/common/software/nersc9/sqs/2.0/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/compute-sanitizer:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/libnvvp:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Compute:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Systems/bin:/opt/cray/pe/perftools/25.09.0/bin:/opt/cray/pe/papi/7.2.0.2/bin:/opt/cray/pe/craype/2.7.35/bin:/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/bin:/opt/cray/pe/mpich/9.0.1/bin:/opt/cray/pe/gcc-native/14/bin:/opt/cray/libfabric/1.22.0/bin:/global/homes/b/bhuang95/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin
+++ PATH=/global/homes/b/bhuang95/.conda/envs/eagle/bin:/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/condabin:/opt/nersc/pe/bin:/global/common/software/nersc/bin:/global/common/software/nersc9/darshan/default/bin:/global/common/software/nersc9/sqs/2.0/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/compute-sanitizer:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/cuda/12.9/libnvvp:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Compute:/opt/nvidia/hpc_sdk/Linux_x86_64/25.5/profilers/Nsight_Systems/bin:/opt/cray/pe/perftools/25.09.0/bin:/opt/cray/pe/papi/7.2.0.2/bin:/opt/cray/pe/craype/2.7.35/bin:/opt/cray/pe/mpich/9.0.1/ofi/gnu/12.3/bin:/opt/cray/pe/mpich/9.0.1/bin:/opt/cray/pe/gcc-native/14/bin:/opt/cray/libfabric/1.22.0/bin:/global/homes/b/bhuang95/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/lib/mit/bin:/usr/lib/mit/sbin:/opt/cray/pe/bin
+++ export CONDA_PREFIX=/global/homes/b/bhuang95/.conda/envs/eagle
+++ CONDA_PREFIX=/global/homes/b/bhuang95/.conda/envs/eagle
+++ export CONDA_SHLVL=1
+++ CONDA_SHLVL=1
+++ export CONDA_DEFAULT_ENV=eagle
+++ CONDA_DEFAULT_ENV=eagle
+++ export 'CONDA_PROMPT_MODIFIER=(eagle) '
+++ CONDA_PROMPT_MODIFIER='(eagle) '
+++ export CONDA_EXE=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda
+++ CONDA_EXE=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda
+++ export _CONDA_EXE=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda
+++ _CONDA_EXE=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/conda
+++ export CONDA_PYTHON_EXE=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/python
+++ CONDA_PYTHON_EXE=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1/bin/python
+++ export _CONDA_ROOT=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1
+++ _CONDA_ROOT=/global/common/software/nersc/pe/conda/26.1.0/Miniforge3-25.11.0-1
+++ . /global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/esmf-activate.sh
++++ '[' -n '' ']'
++++ '[' -f /global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk ']'
++++ export ESMFMKFILE=/global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk
++++ ESMFMKFILE=/global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk
+++ . /global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/esmpy-activate.sh
++++ '[' -n /global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk ']'
++++ export _CONDA_SET_ESMFMKFILE=/global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk
++++ _CONDA_SET_ESMFMKFILE=/global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk
++++ '[' -f /global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk ']'
++++ export ESMFMKFILE=/global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk
++++ ESMFMKFILE=/global/homes/b/bhuang95/.conda/envs/eagle/lib/esmf.mk
+++ . /global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/libxml2-split_activate.sh
++++ test -n ''
++++ xml_catalog_files_libxml2=
++++ XML_CATALOG_FILES=
++++ conda_catalog_files=
++++ ifs_libxml2=' 	
+'
++++ IFS=' '
++++ rem=/global/homes/b/bhuang95/.conda/envs/eagle
++++ for pre in ${rem}
++++ test '' = /global/homes/b/bhuang95/.conda/envs/eagle
++++ conda_catalog_files=/global/homes/b/bhuang95/.conda/envs/eagle
++++ rem=
++++ IFS=' 	
+'
++++ conda_catalog_files='file:///global/homes/b/bhuang95/.conda/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ export 'XML_CATALOG_FILES=file:///global/homes/b/bhuang95/.conda/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ XML_CATALOG_FILES='file:///global/homes/b/bhuang95/.conda/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ unset conda_catalog_files ifs_libxml2 rem
+++ . /global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/openmpi_activate.sh
++++ '[' '' = 1 ']'
++++ '[' -n '' ']'
+++ . /global/homes/b/bhuang95/.conda/envs/eagle/etc/conda/activate.d/ucx-activate.sh
++++ '[' '' = 1 ']'
++ __conda_hashr
++ '[' -n '' ']'
++ '[' -n '' ']'
++ hash -r
++ export NCCL_DEBUG=WARN
++ NCCL_DEBUG=WARN
++ export PYTHONFAULTHANDLER=1
++ PYTHONFAULTHANDLER=1
++ cd /global/homes/b/bhuang95/sorc/fromTim/era5-pretraining/nested-eagle-TimRepo/0.25deg-06km/production/era5-gfs-hrrr/
++ srun /global/u1/b/bhuang95/sorc/fromTim/anemoi/V20250603/anemoi-house/slurm2ddp.sh anemoi-training train --config-name=stage2a_bo
+2026-06-21 15:34:11 INFO Running anemoi training command with overrides: ['--config-name=stage2a_bo']
+2026-06-21 15:34:58 INFO Prepending current user directory (/global/u1/b/bhuang95/sorc/fromTim/era5-pretraining/nested-eagle-TimRepo/0.25deg-06km/production/era5-gfs-hrrr) to the search path.
+2026-06-21 15:34:58 INFO Search path is now: [provider=anemoi-cwd-searchpath-plugin, path=/global/u1/b/bhuang95/sorc/fromTim/era5-pretraining/nested-eagle-TimRepo/0.25deg-06km/production/era5-gfs-hrrr, provider=hydra, path=pkg://hydra.conf, provider=main, path=pkg://anemoi.training/config, provider=anemoi-package-searchpath-plugin, path=pkg://anemoi.training/config]
+[2026-06-21 15:34:59,584][anemoi.training.schemas.base_schema][INFO] - adjusting save_dir path to match output mlflow logs
+[2026-06-21 15:34:59,586][anemoi.training.train.train][INFO] - Config validated.
+[2026-06-21 15:34:59,586][anemoi.training.train.train][INFO] - Starting from checkpoint: True
+/global/homes/b/bhuang95/.conda/envs/eagle/lib/python3.12/site-packages/mlflow/__init__.py:41: UserWarning: Versions of mlflow (2.22.0) and mlflow-skinny (2.22.4) are different. This may lead to unexpected behavior. Please install the same version of both packages.
+  mlflow.mismatch._check_version_mismatch()
+[2026-06-21 15:35:10,545][anemoi.training.diagnostics.mlflow.logger][INFO] - Maximum number of params allowed to be logged is: 2000
+[2026-06-21 15:35:10,575][anemoi.training.diagnostics.mlflow.logger][INFO] - MLflow is logging offline.
+[2026-06-21 15:35:11,903][anemoi.training.diagnostics.mlflow.logger][INFO] - Server2Server: False
+[2026-06-21 15:35:11,904][anemoi.training.diagnostics.mlflow.logger][INFO] - Parent run is a Dry Run: False
+[2026-06-21 15:35:11,932][root][WARNING] - Experiment ID mismatch for exp 159752384251262617-test. ID recorded as '159752384251262617' in meta data. Experiment will be ignored.
+NoneType: None
+[2026-06-21 15:35:15,844][anemoi.training.diagnostics.mlflow.logger][INFO] - Terminal Log Path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2a/plots/bb30df55ba5d425097ecdc9c70084aa6/plots/terminal_log.txt
+[2026-06-21 15:35:15,845][anemoi.training.diagnostics.mlflow.logger][INFO] - SLURM job id: 54806764
+[2026-06-21 15:35:15,987][anemoi.training.diagnostics.mlflow.logger][WARNING] - Failed to init AMD GPU Monitor: `pyrsmi` is not installed, if you are running on an AMD GPU                 and want to log GPU metrics please run `pip install pyrsmi`.
+2026/06/21 15:35:15 INFO mlflow.system_metrics.system_metrics_monitor: Started monitoring system metrics.
+[2026-06-21 15:35:15,988][anemoi.training.train.train][INFO] - Mlflow Run id: bb30df55ba5d425097ecdc9c70084aa6
+[2026-06-21 15:35:15,988][anemoi.training.train.train][INFO] - Run id: bb30df55ba5d425097ecdc9c70084aa6
+[2026-06-21 15:35:15,989][anemoi.training.train.train][INFO] - Parent run server2server: None
+[2026-06-21 15:35:15,989][anemoi.training.train.train][INFO] - Fork run server2server: None
+[2026-06-21 15:35:15,989][anemoi.training.train.train][INFO] - Checkpoints path: root=PosixPath('/pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2a/checkpoint/bb30df55ba5d425097ecdc9c70084aa6') every_n_epochs='anemoi-by_epoch-epoch_{epoch:03d}-step_{step:06d}' every_n_train_steps='anemoi-by_step-epoch_{epoch:03d}-step_{step:06d}' every_n_minutes='anemoi-by_time-epoch_{epoch:03d}-step_{step:06d}'
+[2026-06-21 15:35:15,990][anemoi.training.train.train][INFO] - Plots path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2a/plots/bb30df55ba5d425097ecdc9c70084aa6
+[2026-06-21 15:35:15,990][anemoi.training.train.train][INFO] - Dry run: False
+[2026-06-21 15:35:16,085][anemoi.training.train.train][INFO] - Creating graph for dataset 'data'
+[2026-06-21 15:35:17,743][anemoi.training.train.train][INFO] - Loading graph data from /pscratch/sd/b/bhuang95/nested-eagle/data/0.25deg-06km/mesh-gen/o96-trim25/graph.cut084-13.nn0532_data_data.pt
+[2026-06-21 15:35:19,122][anemoi.training.data.datamodule][INFO] - Initializing multi-dataset module with datasets: ['data']
+[2026-06-21 15:35:19,123][anemoi.training.data.datamodule][WARNING] - Falling back rollout to: 1
+[2026-06-21 15:35:19,125][anemoi.training.data.dataset][INFO] - Creating NativeGridDataset...
+[2026-06-21 15:35:19,215][anemoi.datasets.data.stores][WARNING] - Dataset /pscratch/sd/b/bhuang95/nested-eagle/data/0.25deg-06km/data/hrrr.zarr has missing dates
+[2026-06-21 15:35:19,265][anemoi.datasets.data.stores][WARNING] - Dataset /pscratch/sd/b/bhuang95/nested-eagle/data/0.25deg-06km/data/gfs.zarr has missing dates
+[2026-06-21 15:35:22,089][anemoi.training.data.multidataset][INFO] - Timeincrement set to 1 for data with frequency, 21600, and timestep, 21600
+[2026-06-21 15:35:22,091][anemoi.training.data.multidataset][INFO] - MultiDataset initialized with 1 datasets (data), 11628 valid indices each
+[2026-06-21 15:35:22,093][anemoi.training.train.train][INFO] - Dataset 'data' - Number of variables: 92
+[2026-06-21 15:35:22,094][anemoi.training.train.train][INFO] - Dataset 'data' - Variables: ['cos_julian_day', 'cos_latitude', 'cos_local_time', 'cos_longitude', 'gh_100', 'gh_150', 'gh_200', 'gh_250', 'gh_300', 'gh_400', 'gh_500', 'gh_600', 'gh_700', 'gh_850', 'gh_925', 'gh_1000', 'insolation', 'lsm', 'orog', 'q_100', 'q_150', 'q_200', 'q_250', 'q_300', 'q_400', 'q_500', 'q_600', 'q_700', 'q_850', 'q_925', 'q_1000', 'sh2', 'sin_julian_day', 'sin_latitude', 'sin_local_time', 'sin_longitude', 'sp', 't_100', 't_150', 't_200', 't_250', 't_300', 't_400', 't_500', 't_600', 't_700', 't_850', 't_925', 't_1000', 't2m', 't_surface', 'u_100', 'u_150', 'u_200', 'u_250', 'u_300', 'u_400', 'u_500', 'u_600', 'u_700', 'u_850', 'u_925', 'u_1000', 'u10', 'u80', 'v_100', 'v_150', 'v_200', 'v_250', 'v_300', 'v_400', 'v_500', 'v_600', 'v_700', 'v_850', 'v_925', 'v_1000', 'v10', 'v80', 'w_100', 'w_150', 'w_200', 'w_250', 'w_300', 'w_400', 'w_500', 'w_600', 'w_700', 'w_850', 'w_925', 'w_1000', 'accum_tp']
+[2026-06-21 15:35:22,096][anemoi.training.train.train][INFO] - Dataset 'data' - Total number of prognostic variables: 81
+[2026-06-21 15:35:22,096][anemoi.training.train.train][INFO] - Dataset 'data' - Total number of auxiliary variables: 11
+[2026-06-21 15:35:22,097][anemoi.training.train.train][INFO] - Total GPU count / model group size: 1 - NB: the learning rate will be scaled by this factor!
+[2026-06-21 15:35:22,097][anemoi.training.train.train][INFO] - Effective learning rate: 6.250e-06
+/global/homes/b/bhuang95/.local/lib/python3.12/site-packages/pydantic/main.py:463: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value={'data': 92}, input_type=dict])
+  return self.__pydantic_serializer__.to_python(
+[2026-06-21 15:35:22,149][anemoi.training.diagnostics.callbacks][INFO] - Using progress bar: <class 'pytorch_lightning.callbacks.progress.tqdm_progress.TQDMProgressBar'>
+[2026-06-21 15:35:22,205][anemoi.models.migrations.migrator][INFO] - Loading migration 1755530253_initial
+[2026-06-21 15:35:22,206][anemoi.models.migrations.migrator][INFO] - Loading migration 1762857427_deprecate_eda
+[2026-06-21 15:35:22,206][anemoi.models.migrations.migrator][INFO] - Loading migration 1762857428_chunking_fix
+[2026-06-21 15:35:22,207][anemoi.models.migrations.migrator][INFO] - Loading migration 1763479917_hardware_schema_update
+[2026-06-21 15:35:22,207][anemoi.models.migrations.migrator][INFO] - Loading migration 1763479918_refactor_mapper
+[2026-06-21 15:35:22,207][anemoi.models.migrations.migrator][INFO] - Loading migration 1767108147_move_to_multiple_datasets
+[2026-06-21 15:35:22,272][anemoi.training.train.train][INFO] - MLFlow logger enabled
+/global/homes/b/bhuang95/.local/lib/python3.12/site-packages/lightning_fabric/plugins/environments/slurm.py:204: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python /global/homes/b/bhuang95/.conda/envs/eagle/bin/.anem ...
+[2026-06-21 15:35:24,304][pytorch_lightning.utilities.rank_zero][INFO] - Using 16bit Automatic Mixed Precision (AMP)
+[2026-06-21 15:35:24,669][pytorch_lightning.utilities.rank_zero][INFO] - GPU available: True (cuda), used: True
+[2026-06-21 15:35:24,670][pytorch_lightning.utilities.rank_zero][INFO] - TPU available: False, using: 0 TPU cores
+[2026-06-21 15:35:24,670][pytorch_lightning.utilities.rank_zero][INFO] - HPU available: False, using: 0 HPUs
+[2026-06-21 15:35:24,717][lightning_fabric.utilities.seed][INFO] - [rank: 0] Seed set to 54806764
+[2026-06-21 15:35:24,794][anemoi.training.train.train][INFO] - Initial seed: Rank 0, initial seed 54806764, running with random seed: 54806764
+[2026-06-21 15:36:20,685][anemoi.training.data.datamodule][WARNING] - Falling back rollout to: 1
+[2026-06-21 15:36:20,771][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: cos_julian_day is not normalized.
+[2026-06-21 15:36:20,771][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: cos_latitude is not normalized.
+[2026-06-21 15:36:20,771][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: cos_local_time is not normalized.
+[2026-06-21 15:36:20,772][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: cos_longitude is not normalized.
+[2026-06-21 15:36:20,772][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: insolation is not normalized.
+[2026-06-21 15:36:20,772][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: lsm is not normalized.
+[2026-06-21 15:36:20,773][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: sin_julian_day is not normalized.
+[2026-06-21 15:36:20,773][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: sin_latitude is not normalized.
+[2026-06-21 15:36:20,773][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: sin_local_time is not normalized.
+[2026-06-21 15:36:20,773][anemoi.models.preprocessing.normalizer][INFO] - Normalizing: sin_longitude is not normalized.
+[2026-06-21 15:36:21,059][anemoi.models.layers.utils][INFO] - Linear kernel: torch.nn.Linear.
+[2026-06-21 15:36:21,060][anemoi.models.layers.utils][INFO] - LayerNorm kernel: torch.nn.LayerNorm.
+[2026-06-21 15:36:21,061][anemoi.models.layers.utils][INFO] - Activation kernel: torch.nn.GELU.
+[2026-06-21 15:36:21,061][anemoi.models.layers.utils][INFO] - QueryNorm kernel: anemoi.models.layers.normalization.AutocastLayerNorm.
+[2026-06-21 15:36:21,062][anemoi.models.layers.utils][INFO] - KeyNorm kernel: anemoi.models.layers.normalization.AutocastLayerNorm.
+[2026-06-21 15:36:21,087][anemoi.models.layers.block][INFO] - GraphTransformerMapperBlock using triton graph attention backend.
+[2026-06-21 15:36:21,100][anemoi.models.layers.utils][INFO] - Linear kernel: torch.nn.Linear.
+[2026-06-21 15:36:21,101][anemoi.models.layers.utils][INFO] - LayerNorm kernel: torch.nn.LayerNorm.
+[2026-06-21 15:36:21,102][anemoi.models.layers.utils][INFO] - Activation kernel: torch.nn.GELU.
+[2026-06-21 15:36:21,103][anemoi.models.layers.utils][INFO] - QueryNorm kernel: anemoi.models.layers.normalization.AutocastLayerNorm.
+[2026-06-21 15:36:21,104][anemoi.models.layers.utils][INFO] - KeyNorm kernel: anemoi.models.layers.normalization.AutocastLayerNorm.
+[2026-06-21 15:36:31,458][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,476][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,495][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,513][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,531][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,549][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,567][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,585][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,603][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,621][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,639][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,657][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,675][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,693][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,710][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,728][anemoi.models.layers.attention][INFO] - Using flash attention v2
+[2026-06-21 15:36:31,758][anemoi.models.layers.utils][INFO] - Linear kernel: torch.nn.Linear.
+[2026-06-21 15:36:31,759][anemoi.models.layers.utils][INFO] - LayerNorm kernel: torch.nn.LayerNorm.
+[2026-06-21 15:36:31,760][anemoi.models.layers.utils][INFO] - Activation kernel: torch.nn.GELU.
+[2026-06-21 15:36:31,761][anemoi.models.layers.utils][INFO] - QueryNorm kernel: anemoi.models.layers.normalization.AutocastLayerNorm.
+[2026-06-21 15:36:31,762][anemoi.models.layers.utils][INFO] - KeyNorm kernel: anemoi.models.layers.normalization.AutocastLayerNorm.
+[2026-06-21 15:36:31,782][anemoi.models.layers.block][INFO] - GraphTransformerMapperBlock using triton graph attention backend.
+[2026-06-21 15:36:31,884][anemoi.training.losses.scalers.variable_level][INFO] - Variable Level Scaling: Applying ReluVariableLevelScaler scaling to pl variables ({'param': ['gh', 'u', 'v', 'w', 't', 'q']})
+[2026-06-21 15:36:31,884][anemoi.training.losses.scalers.variable_level][INFO] - with slope = 0.001 and y-intercept/minimum = 0.2.
+/global/homes/b/bhuang95/.conda/envs/eagle/lib/python3.12/site-packages/anemoi/training/losses/scalers/variable_tendency.py:57: UserWarning: Dataset has no tendency statistics! Are you sure you want to use a tendency scaler?
+  warnings.warn("Dataset has no tendency statistics! Are you sure you want to use a tendency scaler?")
+[2026-06-21 15:36:37,756][anemoi.training.losses.scalers.node_attributes][INFO] - Weight of nodes in cutout_mask rescaled such that their sum equals 0.100 of the sum over all nodes
+[2026-06-21 15:36:37,774][anemoi.training.train.train][INFO] - Resuming training from last checkpoint: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage1b/checkpoint/61e40fefaa664a9c8261eb57063971c2/last.ckpt
+[2026-06-21 15:36:37,775][anemoi.training.train.train][INFO] - Loading weights with Transfer Learning from /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage1b/checkpoint/61e40fefaa664a9c8261eb57063971c2/last.ckpt
+[2026-06-21 15:36:38,750][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.pre_processors.data.processors.normalizer._norm_mul
+[2026-06-21 15:36:38,751][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([95])
+[2026-06-21 15:36:38,751][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([92])
+[2026-06-21 15:36:38,751][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.pre_processors.data.processors.normalizer._norm_add
+[2026-06-21 15:36:38,752][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([95])
+[2026-06-21 15:36:38,752][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([92])
+[2026-06-21 15:36:38,752][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.pre_processors.data.processors.normalizer._input_idx
+[2026-06-21 15:36:38,753][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([93])
+[2026-06-21 15:36:38,753][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([89])
+[2026-06-21 15:36:38,753][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.pre_processors.data.processors.normalizer._output_idx
+[2026-06-21 15:36:38,753][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([84])
+[2026-06-21 15:36:38,754][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([81])
+[2026-06-21 15:36:38,754][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.post_processors.data.processors.normalizer._norm_mul
+[2026-06-21 15:36:38,754][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([95])
+[2026-06-21 15:36:38,755][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([92])
+[2026-06-21 15:36:38,755][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.post_processors.data.processors.normalizer._norm_add
+[2026-06-21 15:36:38,755][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([95])
+[2026-06-21 15:36:38,755][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([92])
+[2026-06-21 15:36:38,756][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.post_processors.data.processors.normalizer._input_idx
+[2026-06-21 15:36:38,756][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([93])
+[2026-06-21 15:36:38,756][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([89])
+[2026-06-21 15:36:38,756][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.post_processors.data.processors.normalizer._output_idx
+[2026-06-21 15:36:38,756][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([84])
+[2026-06-21 15:36:38,757][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([81])
+[2026-06-21 15:36:38,757][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.model.node_attributes.data.latlons_data
+[2026-06-21 15:36:38,757][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([1035360, 4])
+[2026-06-21 15:36:38,757][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([1418437, 4])
+[2026-06-21 15:36:38,758][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.model.node_attributes.data.latlons_hidden
+[2026-06-21 15:36:38,758][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([40320, 4])
+[2026-06-21 15:36:38,758][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([65346, 4])
+[2026-06-21 15:36:38,758][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.model.encoder.data.emb_nodes_src.weight
+[2026-06-21 15:36:38,758][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([512, 190])
+[2026-06-21 15:36:38,759][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([512, 182])
+[2026-06-21 15:36:38,759][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.model.decoder.data.emb_nodes_dst.weight
+[2026-06-21 15:36:38,759][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([512, 190])
+[2026-06-21 15:36:38,759][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([512, 182])
+[2026-06-21 15:36:38,760][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.model.decoder.data.node_data_extractor.1.weight
+[2026-06-21 15:36:38,760][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([84, 512])
+[2026-06-21 15:36:38,760][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([81, 512])
+[2026-06-21 15:36:38,760][anemoi.training.utils.checkpoint][INFO] - Skipping loading parameter: model.model.decoder.data.node_data_extractor.1.bias
+[2026-06-21 15:36:38,761][anemoi.training.utils.checkpoint][INFO] - Checkpoint shape: torch.Size([84])
+[2026-06-21 15:36:38,761][anemoi.training.utils.checkpoint][INFO] - Model shape: torch.Size([81])
+[2026-06-21 15:36:38,806][anemoi.models.data_indices.collection][INFO] - No variable order to compare. Skipping variable order check.
+[2026-06-21 15:36:38,807][anemoi.training.train.train][INFO] - The following submodules will NOT be trained: []
+/global/homes/b/bhuang95/.local/lib/python3.12/site-packages/pydantic/main.py:463: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value={'data': 92}, input_type=dict])
+  return self.__pydantic_serializer__.to_python(
+[2026-06-21 15:36:38,836][anemoi.models.utils.compile][WARNING] - Minimum library versions for compilation not met. torch: v2.6.0+cu124<2.6 or torch_geometric: v2.4.0<2.6. Please upgrade these libraries to enable compilation.
+[2026-06-21 15:36:38,837][anemoi.training.train.train][INFO] - Recompile limit set to 32
+/global/homes/b/bhuang95/.local/lib/python3.12/site-packages/lightning_fabric/plugins/environments/slurm.py:204: The `srun` command is available on your system but is not used. HINT: If your intention is to run Lightning on SLURM, prepend your python command with `srun` like so: srun python /global/homes/b/bhuang95/.conda/envs/eagle/bin/.anem ...
+[2026-06-21 15:36:38,981][lightning_fabric.utilities.distributed][INFO] - Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+[2026-06-21T23:03:13.799] error: *** STEP 54806764.0 ON nid001064 CANCELLED AT 2026-06-21T23:03:13 DUE TO TIME LIMIT ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: nid001064: task 0: Terminated
+srun: Terminating StepId=54806764.0
