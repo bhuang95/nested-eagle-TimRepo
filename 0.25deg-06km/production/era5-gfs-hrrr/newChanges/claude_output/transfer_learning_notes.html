@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Stage1b Transfer Learning Setup</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.4; margin: 1in; }
+  h1 { font-size: 18pt; }
+  h2 { font-size: 14pt; margin-top: 20px; }
+  code { font-family: Consolas, "Courier New", monospace; background: #f2f2f2; padding: 1px 3px; }
+  pre { font-family: Consolas, "Courier New", monospace; background: #f2f2f2; padding: 8px; border: 1px solid #ccc; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+  th, td { border: 1px solid #999; padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #d9e1f2; }
+</style>
+</head>
+<body>
+
+<h1>Stage1b Transfer Learning Setup</h1>
+
+<p>The stage1a checkpoint exists at
+<code>.../stage1a/checkpoint/29a70980e917421697a9dd9d9e3c07ff/last.ckpt</code>
+(the 702&nbsp;MB full checkpoint). Here is how the transfer-learning knobs work and what
+still needs to be set.</p>
+
+<h2>The one thing you must change</h2>
+
+<p>In <code>stage1b_bo.yaml</code>, <code>fork_run_id</code> is still the OmegaConf
+mandatory-missing sentinel:</p>
+
+<pre>fork_run_id: ???</pre>
+
+<p>Set it to the <b>stage1a run_id</b>:</p>
+
+<pre>fork_run_id: 29a70980e917421697a9dd9d9e3c07ff</pre>
+
+<p>This matters because your <code>warm_start</code> path is built from it (line 240):</p>
+
+<pre>.../stage1a/checkpoint/${training.fork_run_id}/last.ckpt</pre>
+
+<p>So once <code>fork_run_id</code> is set, <code>warm_start</code> resolves to the
+checkpoint above, which exists.</p>
+
+<h2>The other variables &mdash; already correct, here is why</h2>
+
+<table>
+<tr><th>Variable</th><th>Value</th><th>Role</th></tr>
+<tr>
+  <td><code>transfer_learning</code></td>
+  <td><code>true</code> &#10003;</td>
+  <td>Loads weights via the transfer-learning loader, which tolerates
+  <b>architecture/shape mismatches</b> and partial loading. You need this because stage1a
+  is o48 / 1.00&deg; and stage1b is o96 / 0.25&deg; &mdash; different graphs, so the
+  encoder/decoder/edge tensors differ.</td>
+</tr>
+<tr>
+  <td><code>load_weights_only</code></td>
+  <td><code>true</code> &#10003;</td>
+  <td>Loads <b>only model weights</b>, not optimizer state, epoch counter, or LR-scheduler
+  state. Required for a fork &mdash; you want a fresh optimizer with stage1b's own LR
+  schedule (warmup 1000, rate 3.125e-05, max_steps 60000).</td>
+</tr>
+<tr>
+  <td><code>run_id</code></td>
+  <td><code>null</code> &#10003;</td>
+  <td><code>run_id</code> is for <b>resuming</b> a run in place (continues optimizer/epoch).
+  Keep it <code>null</code> so a brand-new run + output dir is created instead of
+  resuming.</td>
+</tr>
+<tr>
+  <td><code>fork_run_id</code></td>
+  <td><b>set this</b></td>
+  <td>Identifies the <b>source</b> run to initialize weights from.</td>
+</tr>
+</table>
+
+<p>The mental model: <b><code>run_id</code> = resume the same run; <code>fork_run_id</code>
+= start a new run seeded from another run's weights.</b> For transfer learning you want
+fork, so <code>run_id: null</code> + <code>fork_run_id: &lt;source&gt;</code> +
+<code>transfer_learning: true</code> + <code>load_weights_only: true</code>.</p>
+
+<h2>One heads-up unrelated to transfer learning</h2>
+
+<p>Line 224, the mlflow <code>save_dir</code>, points at <b>stage1a's</b> mlflow dir:</p>
+
+<pre>mlflow: ${oc.decode:${oc.env:SCRATCH}}/.../era5-gfs-hrrr/stage1a/logs/mlflow/</pre>
+
+<p>stage1a uses plain <code>mlflow</code> (relative). If you want stage1b's tracking logs
+kept separate, change this to <code>.../stage1b/logs/mlflow/</code>. Not required for
+training to run &mdash; just where logs land.</p>
+
+</body>
+</html>

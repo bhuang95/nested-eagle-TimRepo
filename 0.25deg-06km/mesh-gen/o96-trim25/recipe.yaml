@@ -4,9 +4,11 @@ nodes:
       _target_: anemoi.graphs.nodes.AnemoiDatasetNodes
       dataset:
         cutout:
-          - dataset: /pscratch/sd/t/timothys/nested-eagle/0.25deg-06km/data/hrrr.zarr
+          #- dataset: /pscratch/sd/t/timothys/nested-eagle/0.25deg-06km/data/hrrr.zarr
+          - dataset: /pscratch/sd/b/bhuang95/nested-eagle/data/0.25deg-06km/data/hrrr.zarr
             trim_edge: [25, 24, 25, 26]
-          - dataset: /pscratch/sd/t/timothys/nested-eagle/0.25deg-06km/data/gfs.zarr
+          #- dataset: /pscratch/sd/t/timothys/nested-eagle/0.25deg-06km/data/gfs.zarr
+          - dataset: /pscratch/sd/b/bhuang95/nested-eagle/data/0.25deg-06km/data/gfs.zarr
         adjust: all
         min_distance_km: 6
     attributes:

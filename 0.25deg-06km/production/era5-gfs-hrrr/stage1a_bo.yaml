@@ -419,7 +419,8 @@ training:
           nodes_name: ${graph.data}
           nodes_attribute_name: area_weight
           norm: unit-sum
-  run_id: null
+  #run_id: null
+  run_id: 29a70980e917421697a9dd9d9e3c07ff
   fork_run_id: null
   load_weights_only: false
   transfer_learning: false
