@@ -1,7 +1,7 @@
 # Custom additions
 
 eagle-logs/
-submit*.sh
+!submit*.sh
 log.wxvx.*.out*
 !*.out
 !*.err
