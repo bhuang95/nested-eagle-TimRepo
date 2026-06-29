@@ -383,10 +383,10 @@ model:
   output_mask:
     _target_: anemoi.training.utils.masks.NoOutputMask
   trainable_parameters:
-    data: 0
-    hidden: 0
-    data2hidden: 0
-    hidden2data: 0
+    data: 8
+    hidden: 8
+    data2hidden: 8
+    hidden2data: 8
   attributes:
     edges:
     - edge_length

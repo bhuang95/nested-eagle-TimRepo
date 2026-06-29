@@ -3,7 +3,7 @@
 #SBATCH -J stage2a
 #SBATCH -o /pscratch/sd/b/bhuang95/nested-eagle/slurm/stage2a_bo.%j.out
 #SBATCH -e /pscratch/sd/b/bhuang95/nested-eagle/slurm/stage2a_bo.%j.out
-#SBATCH --nodes=4
+#SBATCH --nodes=16
 #SBATCH --tasks-per-node=4
 #SBATCH --gpus-per-node=4
 ##SBATCH --cpus-per-task=16
