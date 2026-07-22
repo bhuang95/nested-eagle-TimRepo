@@ -7,11 +7,11 @@
 #SBATCH --tasks-per-node=4
 #SBATCH --gpus-per-node=4
 ##SBATCH --cpus-per-task=16
-#SBATCH --qos=debug
+#SBATCH --qos=regular
 #SBATCH --account=m4718
 ##SBATCH --constraint=gpu&hbm80g
 #SBATCH --constraint=gpu
-#SBATCH -t 00:30:00
+#SBATCH -t 32:00:00
 
 # -----------------------------------------------------------------------------
 # Interactive (front terminal) test instead of sbatch:
