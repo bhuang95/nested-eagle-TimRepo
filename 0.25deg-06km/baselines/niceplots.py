@@ -25,12 +25,14 @@ def get_units(name):
 
 def get_color(label):
     color = None
-    if "Nested" in label:
+    if "NE-era5" in label:
         color = "C0"
-    elif "HRRR" in label:
+    elif "NE-gfs" in label:
         color = "C1"
-    elif "GFS" in label:
+    elif "HRRR" in label:
         color = "C2"
+    elif "GFS" in label:
+        color = "C3"
     elif "Global-EAGLE" in label:
         color = "C5"
     return color

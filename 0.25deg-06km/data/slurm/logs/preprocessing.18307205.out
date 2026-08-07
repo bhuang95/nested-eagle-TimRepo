@@ -1,0 +1,862 @@
++ source /home/Bo.Huang/loadMods/load_conda.sh
++++ /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda shell.bash hook
+++ __conda_setup='export CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+export CONDA_PYTHON_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python'\''
+export _CONDA_ROOT='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+
+# Copyright (C) 2012 Anaconda, Inc
+# SPDX-License-Identifier: BSD-3-Clause
+__conda_exe() (
+    if [ -n "${_CE_M:+x}" ] && [ -n "${_CE_CONDA:+x}" ]; then
+        # only use _CE_M/_CE_CONDA when defined to avoid issues when run with `set -u`
+        "$CONDA_EXE" $_CE_M $_CE_CONDA "$@"
+    else
+        "$CONDA_EXE" "$@"
+    fi
+)
+
+__conda_hashr() {
+    if [ -n "${ZSH_VERSION:+x}" ]; then
+        \rehash
+    elif [ -n "${POSH_VERSION:+x}" ]; then
+        :  # pass
+    else
+        \hash -r
+    fi
+}
+
+__conda_activate() {
+    if [ -n "${CONDA_PS1_BACKUP:+x}" ]; then
+        # Handle transition from shell activated with conda <= 4.3 to a subsequent activation
+        # after conda updated to >= 4.4. See issue #6173.
+        PS1="$CONDA_PS1_BACKUP"
+        \unset CONDA_PS1_BACKUP
+    fi
+    \local ask_conda
+    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix "$@")" || \return
+    \eval "$ask_conda"
+    __conda_hashr
+}
+
+__conda_reactivate() {
+    # FUTURE: conda 25.9, remove this function
+    echo "'\''__conda_reactivate'\'' is deprecated and will be removed in 25.9. Use '\''__conda_activate reactivate'\'' instead." 1>&2
+    __conda_activate reactivate
+}
+
+conda() {
+    \local cmd="${1-__missing__}"
+    case "$cmd" in
+        activate|deactivate)
+            __conda_activate "$@"
+            ;;
+        install|update|upgrade|remove|uninstall)
+            __conda_exe "$@" || \return
+            __conda_activate reactivate
+            ;;
+        *)
+            __conda_exe "$@"
+            ;;
+    esac
+}
+
+if [ -z "${CONDA_SHLVL+x}" ]; then
+    \export CONDA_SHLVL=0
+    # In dev-mode CONDA_EXE is python.exe and on Windows
+    # it is in a different relative location to condabin.
+    if [ -n "${_CE_CONDA:+x}" ] && [ -n "${WINDIR+x}" ]; then
+        PATH="$(\dirname "$CONDA_EXE")/condabin${PATH:+":${PATH}"}"
+    else
+        PATH="$(\dirname "$(\dirname "$CONDA_EXE")")/condabin${PATH:+":${PATH}"}"
+    fi
+    \export PATH
+
+    # We'\''re not allowing PS1 to be unbound. It must at least be set.
+    # However, we'\''re not exporting it, which can cause problems when starting a second shell
+    # via a first shell (i.e. starting zsh from bash).
+    if [ -z "${PS1+x}" ]; then
+        PS1=
+    fi
+fi
+
+conda activate '\''base'\'''
+++ '[' 0 -eq 0 ']'
+++ eval 'export CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+export CONDA_PYTHON_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python'\''
+export _CONDA_ROOT='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+
+# Copyright (C) 2012 Anaconda, Inc
+# SPDX-License-Identifier: BSD-3-Clause
+__conda_exe() (
+    if [ -n "${_CE_M:+x}" ] && [ -n "${_CE_CONDA:+x}" ]; then
+        # only use _CE_M/_CE_CONDA when defined to avoid issues when run with `set -u`
+        "$CONDA_EXE" $_CE_M $_CE_CONDA "$@"
+    else
+        "$CONDA_EXE" "$@"
+    fi
+)
+
+__conda_hashr() {
+    if [ -n "${ZSH_VERSION:+x}" ]; then
+        \rehash
+    elif [ -n "${POSH_VERSION:+x}" ]; then
+        :  # pass
+    else
+        \hash -r
+    fi
+}
+
+__conda_activate() {
+    if [ -n "${CONDA_PS1_BACKUP:+x}" ]; then
+        # Handle transition from shell activated with conda <= 4.3 to a subsequent activation
+        # after conda updated to >= 4.4. See issue #6173.
+        PS1="$CONDA_PS1_BACKUP"
+        \unset CONDA_PS1_BACKUP
+    fi
+    \local ask_conda
+    ask_conda="$(PS1="${PS1:-}" __conda_exe shell.posix "$@")" || \return
+    \eval "$ask_conda"
+    __conda_hashr
+}
+
+__conda_reactivate() {
+    # FUTURE: conda 25.9, remove this function
+    echo "'\''__conda_reactivate'\'' is deprecated and will be removed in 25.9. Use '\''__conda_activate reactivate'\'' instead." 1>&2
+    __conda_activate reactivate
+}
+
+conda() {
+    \local cmd="${1-__missing__}"
+    case "$cmd" in
+        activate|deactivate)
+            __conda_activate "$@"
+            ;;
+        install|update|upgrade|remove|uninstall)
+            __conda_exe "$@" || \return
+            __conda_activate reactivate
+            ;;
+        *)
+            __conda_exe "$@"
+            ;;
+    esac
+}
+
+if [ -z "${CONDA_SHLVL+x}" ]; then
+    \export CONDA_SHLVL=0
+    # In dev-mode CONDA_EXE is python.exe and on Windows
+    # it is in a different relative location to condabin.
+    if [ -n "${_CE_CONDA:+x}" ] && [ -n "${WINDIR+x}" ]; then
+        PATH="$(\dirname "$CONDA_EXE")/condabin${PATH:+":${PATH}"}"
+    else
+        PATH="$(\dirname "$(\dirname "$CONDA_EXE")")/condabin${PATH:+":${PATH}"}"
+    fi
+    \export PATH
+
+    # We'\''re not allowing PS1 to be unbound. It must at least be set.
+    # However, we'\''re not exporting it, which can cause problems when starting a second shell
+    # via a first shell (i.e. starting zsh from bash).
+    if [ -z "${PS1+x}" ]; then
+        PS1=
+    fi
+fi
+
+conda activate '\''base'\'''
++++ export CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
++++ CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
++++ export _CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
++++ _CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
++++ export _CE_M=
++++ _CE_M=
++++ export _CE_CONDA=
++++ _CE_CONDA=
++++ export CONDA_PYTHON_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python
++++ CONDA_PYTHON_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python
++++ export _CONDA_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
++++ _CONDA_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
++++ '[' -z x ']'
++++ conda activate base
++++ local cmd=activate
++++ case "$cmd" in
++++ __conda_activate activate base
++++ '[' -n '' ']'
++++ local ask_conda
+++++ PS1=
+++++ __conda_exe shell.posix activate base
+++++ '[' -n '' ']'
+++++ /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda shell.posix activate base
++++ ask_conda='. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/mpivars.deactivate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/esmpy-deactivate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/esmf-deactivate.sh"
+export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+PS1='\''(base) '\''
+export PATH='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin'\''
+export CONDA_PREFIX='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+export CONDA_SHLVL='\''3'\''
+export CONDA_DEFAULT_ENV='\''base'\''
+export CONDA_PROMPT_MODIFIER='\''(base) '\''
+export CONDA_PREFIX_2='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle'\''
+export CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export CONDA_PYTHON_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python'\''
+export _CONDA_ROOT='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/etc/conda/activate.d/libglib_activate.sh"'
++++ eval '. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/mpivars.deactivate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/esmpy-deactivate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/esmf-deactivate.sh"
+export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+PS1='\''(base) '\''
+export PATH='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin'\''
+export CONDA_PREFIX='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+export CONDA_SHLVL='\''3'\''
+export CONDA_DEFAULT_ENV='\''base'\''
+export CONDA_PROMPT_MODIFIER='\''(base) '\''
+export CONDA_PREFIX_2='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle'\''
+export CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export CONDA_PYTHON_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python'\''
+export _CONDA_ROOT='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/etc/conda/activate.d/libglib_activate.sh"'
+++++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/mpivars.deactivate.sh
++++++ '[' '' '!=' 1 ']'
+++++++ sed 's|/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/mpi.jar:\?||'
+++++++ echo /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/mpi.jar
++++++ export CLASSPATH=
++++++ CLASSPATH=
+++++++ echo /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric:
+++++++ sed 's|/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric:\?||'
++++++ export LD_LIBRARY_PATH=
++++++ LD_LIBRARY_PATH=
+++++++ echo
+++++++ sed 's|/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib:\?||'
++++++ export LD_LIBRARY_PATH=
++++++ LD_LIBRARY_PATH=
+++++++ echo /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/share/man:/usr/local/slurm/default/share/man:/apps/lmod/lmod/share/man::/apps/local/man:/usr/share/man
+++++++ sed 's|/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/share/man:\?||'
++++++ export MANPATH=/usr/local/slurm/default/share/man:/apps/lmod/lmod/share/man::/apps/local/man:/usr/share/man
++++++ MANPATH=/usr/local/slurm/default/share/man:/apps/lmod/lmod/share/man::/apps/local/man:/usr/share/man
+++++++ echo /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric
+++++++ sed 's|/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric:\?||'
++++++ export LIBRARY_PATH=
++++++ LIBRARY_PATH=
+++++++ echo /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
+++++++ sed 's|/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:||'
++++++ export PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
++++++ PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
+++++++ which fi_info
+++++++ alias
+++++++ eval declare -f
++++++++ declare -f
+++++++ /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot fi_info
+/usr/bin/which: no fi_info in (/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin)
++++++ FIP=
++++++ echo ''
++++++ grep -q 'compilers_and_libraries.*mpi'
++++++ echo ''
++++++ grep -q /mpi/
++++++ export I_MPI_ROOT=
++++++ I_MPI_ROOT=
++++++ echo /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric/prov:/usr/lib64/libfabric
++++++ grep -q /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
++++++ [[ '' != '' ]]
++++++ export FI_PROVIDER_PATH=
++++++ FI_PROVIDER_PATH=
+++++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/esmpy-deactivate.sh
++++++ unset ESMFMKFILE
++++++ '[' -n /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk ']'
++++++ export ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
++++++ ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
++++++ unset _CONDA_SET_ESMFMKFILE
+++++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/deactivate.d/esmf-deactivate.sh
++++++ unset ESMFMKFILE
++++++ '[' -n '' ']'
+++++ export _CE_M=
+++++ _CE_M=
+++++ export _CE_CONDA=
+++++ _CE_CONDA=
+++++ PS1='(base) '
+++++ export PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
+++++ PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
+++++ export CONDA_PREFIX=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++++ CONDA_PREFIX=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++++ export CONDA_SHLVL=3
+++++ CONDA_SHLVL=3
+++++ export CONDA_DEFAULT_ENV=base
+++++ CONDA_DEFAULT_ENV=base
+++++ export 'CONDA_PROMPT_MODIFIER=(base) '
+++++ CONDA_PROMPT_MODIFIER='(base) '
+++++ export CONDA_PREFIX_2=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
+++++ CONDA_PREFIX_2=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
+++++ export CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++++ CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++++ export _CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++++ _CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++++ export CONDA_PYTHON_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python
+++++ CONDA_PYTHON_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python
+++++ export _CONDA_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++++ _CONDA_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/etc/conda/activate.d/libglib_activate.sh
++++++ export GSETTINGS_SCHEMA_DIR_CONDA_BACKUP=
++++++ GSETTINGS_SCHEMA_DIR_CONDA_BACKUP=
++++++ export GSETTINGS_SCHEMA_DIR=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/share/glib-2.0/schemas
++++++ GSETTINGS_SCHEMA_DIR=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/share/glib-2.0/schemas
++++ __conda_hashr
++++ '[' -n '' ']'
++++ '[' -n '' ']'
++++ hash -r
+++ unset __conda_setup
++ conda activate eagle
++ local cmd=activate
++ case "$cmd" in
++ __conda_activate activate eagle
++ '[' -n '' ']'
++ local ask_conda
+++ PS1='(base) '
+++ __conda_exe shell.posix activate eagle
+++ '[' -n '' ']'
+++ /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda shell.posix activate eagle
++ ask_conda='. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/etc/conda/deactivate.d/libglib_deactivate.sh"
+export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+PS1='\''(eagle) '\''
+export PATH='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin'\''
+export CONDA_PREFIX='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle'\''
+export CONDA_SHLVL='\''4'\''
+export CONDA_DEFAULT_ENV='\''eagle'\''
+export CONDA_PROMPT_MODIFIER='\''(eagle) '\''
+export CONDA_PREFIX_3='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+export CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export CONDA_PYTHON_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python'\''
+export _CONDA_ROOT='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/esmf-activate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/esmpy-activate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/libxml2-split_activate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/mpivars.activate.sh"'
++ eval '. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/etc/conda/deactivate.d/libglib_deactivate.sh"
+export _CE_M='\'''\''
+export _CE_CONDA='\'''\''
+PS1='\''(eagle) '\''
+export PATH='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin'\''
+export CONDA_PREFIX='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle'\''
+export CONDA_SHLVL='\''4'\''
+export CONDA_DEFAULT_ENV='\''eagle'\''
+export CONDA_PROMPT_MODIFIER='\''(eagle) '\''
+export CONDA_PREFIX_3='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+export CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export _CONDA_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda'\''
+export CONDA_PYTHON_EXE='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python'\''
+export _CONDA_ROOT='\''/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3'\''
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/esmf-activate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/esmpy-activate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/libxml2-split_activate.sh"
+. "/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/mpivars.activate.sh"'
+++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/etc/conda/deactivate.d/libglib_deactivate.sh
++++ export GSETTINGS_SCHEMA_DIR=
++++ GSETTINGS_SCHEMA_DIR=
++++ unset GSETTINGS_SCHEMA_DIR_CONDA_BACKUP
++++ '[' -z ']'
++++ unset GSETTINGS_SCHEMA_DIR
+++ export _CE_M=
+++ _CE_M=
+++ export _CE_CONDA=
+++ _CE_CONDA=
+++ PS1='(eagle) '
+++ export PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
+++ PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
+++ export CONDA_PREFIX=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
+++ CONDA_PREFIX=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
+++ export CONDA_SHLVL=4
+++ CONDA_SHLVL=4
+++ export CONDA_DEFAULT_ENV=eagle
+++ CONDA_DEFAULT_ENV=eagle
+++ export 'CONDA_PROMPT_MODIFIER=(eagle) '
+++ CONDA_PROMPT_MODIFIER='(eagle) '
+++ export CONDA_PREFIX_3=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++ CONDA_PREFIX_3=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++ export CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++ CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++ export _CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++ _CONDA_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/conda
+++ export CONDA_PYTHON_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python
+++ CONDA_PYTHON_EXE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/bin/python
+++ export _CONDA_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++ _CONDA_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3
+++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/esmf-activate.sh
++++ '[' -n '' ']'
++++ '[' -f /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk ']'
++++ export ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
++++ ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
+++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/esmpy-activate.sh
++++ '[' -n /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk ']'
++++ export _CONDA_SET_ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
++++ _CONDA_SET_ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
++++ '[' -f /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk ']'
++++ export ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
++++ ESMFMKFILE=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/esmf.mk
+++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/libxml2-split_activate.sh
++++ test -n 'file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ xml_catalog_files_libxml2='file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ XML_CATALOG_FILES='file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog '
++++ conda_catalog_files=
++++ ifs_libxml2=' 	
+'
++++ IFS=' '
++++ rem=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
++++ for pre in ${rem}
++++ test '' = /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
++++ conda_catalog_files=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
++++ rem=
++++ IFS=' 	
+'
++++ conda_catalog_files='file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ export 'XML_CATALOG_FILES=file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ XML_CATALOG_FILES='file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog file:///scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/xml/catalog file:///etc/xml/catalog'
++++ unset conda_catalog_files ifs_libxml2 rem
+++ . /scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/etc/conda/activate.d/mpivars.activate.sh
++++ '[' '' '!=' 1 ']'
++++ export I_MPI_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
++++ I_MPI_ROOT=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle
++++ '[' -z '' ']'
++++ export CLASSPATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/mpi.jar
++++ CLASSPATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/mpi.jar
++++ '[' -z /usr/local/slurm/default/share/man:/apps/lmod/lmod/share/man::/apps/local/man:/usr/share/man ']'
++++ export MANPATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/share/man:/usr/local/slurm/default/share/man:/apps/lmod/lmod/share/man::/apps/local/man:/usr/share/man
++++ MANPATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/share/man:/usr/local/slurm/default/share/man:/apps/lmod/lmod/share/man::/apps/local/man:/usr/share/man
++++ '[' -z '' ']'
++++ i_mpi_ofi_library_internal=1
++++ case "$i_mpi_ofi_library_internal" in
++++ export PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
++++ PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin/libfabric:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/bin:/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/condabin:/home/Bo.Huang/.local/bin:/home/Bo.Huang/bin:/usr/local/slurm/default/bin:/usr/local/slurm/default/sbin:/usr/libexec/gsissh/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/apps/hpss:/opt/dell/srvadmin/sbin:/apps/local/bin:/apps/local/sbin:/apps/bin:/apps/spack/usr/bin:/opt/dell/srvadmin/sbin
++++ export LD_LIBRARY_PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric:
++++ LD_LIBRARY_PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric:
++++ '[' -z '' ']'
++++ export LIBRARY_PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric
++++ LIBRARY_PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric
+++++ grep -i Ubuntu
+++++ cat /etc/os-release /etc/redhat-release /etc/rocky-release /etc/rocky-release-upstream /etc/system-release /etc/system-release-cpe
++++ '[' -n '' ']'
++++ export FI_PROVIDER_PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric/prov:/usr/lib64/libfabric
++++ FI_PROVIDER_PATH=/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/libfabric/prov:/usr/lib64/libfabric
++ __conda_hashr
++ '[' -n '' ']'
++ '[' -n '' ']'
++ hash -r
++ export SCRATCH=/scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/
++ SCRATCH=/scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/
++ cd /scratch4/BMC/gsienkf/Bo.Huang/expCodes/ML/nested-eagle-TimRepo/0.25deg-06km/data
++ python create_grids.py
+MPI startup(): PMI server not found. Please set I_MPI_PMI_LIBRARY variable if it is not a singleton case.
++ srun ufs2arco hrrr.yaml --overwrite
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:825: FutureWarning: In a future version of xarray the default value for data_vars will change from data_vars='all' to data_vars=None. This is likely to lead to different results when multiple datasets have matching variables with overlapping values. To opt in to new defaults and get rid of these warnings now use `set_options(use_new_combine_kwarg_defaults=True) or set data_vars explicitly.
+  result = xr.concat(dslist, dim="variable", combine_attrs="drop")
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+/scratch4/BMC/gsienkf/Bo.Huang/extApps/miniconda3/envs/eagle/lib/python3.12/site-packages/ufs2arco/targets/anemoi.py:469: FutureWarning: Deleting a single level of a MultiIndex is deprecated. Previously, this deleted all levels of a MultiIndex. Please also drop the following variables: {'cell2d'} to avoid an error in the future.
+  nds["cell"] = xr.DataArray(
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+[2026-07-27T20:53:25.440] error: *** STEP 18307205.0 ON ufe10 CANCELLED AT 2026-07-27T20:53:25 DUE to SIGNAL Terminated ***
+[2026-07-27T20:53:25.446] error: *** JOB 18307205 ON ufe10 CANCELLED AT 2026-07-27T20:53:25 DUE to SIGNAL Terminated ***

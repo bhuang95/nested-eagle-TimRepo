@@ -1,0 +1,16 @@
+checkpoint_path: /scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/checkpoint/f14410a5af554f72b0dc9aa260b4d2e7/inference-last.ckpt
+output_path: /scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/inference-testing
+lead_time: 360
+input_dataset_kwargs:
+  cutout:
+    - dataset: /scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/nested-eagle/0.25deg-06km/data/testing/hrrr.zarr
+      trim_edge: [25, 24, 25, 26]
+    - dataset: /scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/nested-eagle/0.25deg-06km/data/testing/gfs.zarr
+  adjust: all
+  min_distance_km: 6
+
+start_date: 2024-02-01T06
+end_date: 2025-01-31T18
+freq: 30h
+
+use_mpi: true

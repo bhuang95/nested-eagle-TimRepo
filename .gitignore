@@ -1,5 +1,11 @@
 # Custom additions
 
+# Large build artifacts / core dumps / caches - never commit these
+core.*
+**/pkg_cache/
+**/data/cache/
+*.whl
+
 eagle-logs/
 !submit*.sh
 log.wxvx.*.out*
