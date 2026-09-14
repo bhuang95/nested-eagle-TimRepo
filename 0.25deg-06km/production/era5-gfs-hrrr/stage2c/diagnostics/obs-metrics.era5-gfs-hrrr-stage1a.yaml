@@ -1,0 +1,61 @@
+# obs-metrics for the ERA5-pretrained (stage1a) global model inference.
+# Unlike stage2c's nested runs, this forecast is a plain 1-deg global lat/lon
+# grid (64800 cells = 180 x 360), so:
+#   model_type: global  -> no lam_index, no lcc_info, no forecast_regrid_kwargs,
+#                          and no anemoi_reference_dataset_kwargs
+forecast_path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/diagnostics/inference-era5-gfs-hrrr-stage1a/
+output_path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/diagnostics/inference-era5-gfs-hrrr-stage1a/obs-metrics/
+log_path: eagle-logs/obs_metrics/era5-stage1a
+lead_time: 360
+use_mpi: True
+
+model_type: global
+
+# ERA5 (GCS style) variable names, as written by anemoi inference.
+# Note: the file has "geopotential" (m2/s2) but obs verification wants
+# geopotential_height, so gh is not verifiable here; there is also no 2m
+# specific humidity / dewpoint variable in this checkpoint's output.
+vars_of_interest:
+  - temperature
+  - specific_humidity
+  - u_component_of_wind
+  - v_component_of_wind
+  - surface_pressure
+  - 2m_temperature
+  - 10m_u_component_of_wind
+  - 10m_v_component_of_wind
+  # quantities that obs-metrics can derive
+  - wind_speed
+  - 10m_wind_speed
+
+levels:
+  - 100
+  - 250
+  - 500
+  - 850
+
+temporal_window: 30min
+max_qc_value: 2
+
+subregions:
+  conus:
+    longitude: [225, 310]
+    latitude: [20, 55]
+  europe:
+    longitude: [-25, 65]
+    latitude: [35, 75]
+  tropics:
+    latitude: [-20, 20]
+  northern_hemisphere:
+    latitude: [20, 80]
+  southern_hemisphere:
+    latitude: [-80, -20]
+  polar_north:
+    latitude: [60, 90]
+  polar_south:
+    latitude: [-90, -60]
+
+# must match inference.era5-gfs-hrrr-stage1a.yaml (113 initializations)
+start_date: 2016-02-01T06
+end_date: 2017-01-31T18
+freq: 78h

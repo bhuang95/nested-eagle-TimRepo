@@ -1,0 +1,11 @@
+checkpoint_path: /global/cfs/cdirs/m4718/timothys/nested-eagle/0.25deg-06km/production/gfs-only/stage1b/checkpoint/97c64e829b3b4895bed107d414467684/inference-last.ckpt
+output_path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/diagnostics/inference-gfs-only-stage1b/
+lead_time: 360
+input_dataset_kwargs:
+  dataset: /pscratch/sd/b/bhuang95/nested-eagle/data/0.25deg-06km/data/gfs.zarr
+
+start_date: 2017-02-01T06
+end_date: 2018-01-31T18
+freq: 78h
+
+use_mpi: true

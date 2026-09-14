@@ -1,0 +1,11 @@
+checkpoint_path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage1a/checkpoint/29a70980e917421697a9dd9d9e3c07ff/inference-last.ckpt
+output_path: /pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/diagnostics/inference-era5-gfs-hrrr-stage1a/
+lead_time: 360
+input_dataset_kwargs:
+  dataset: /pscratch/sd/b/bhuang95/anemoi-house/replay/atmosphere-subsampled/no-log-ERA5/transfer-learning/preprocessing/trainY40-1979-2018-1.00deg/dataset.zarr
+
+start_date: 2017-02-01T06
+end_date: 2018-01-31T18
+freq: 78h
+
+use_mpi: true

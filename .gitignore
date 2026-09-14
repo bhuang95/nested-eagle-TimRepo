@@ -9,8 +9,6 @@ core.*
 eagle-logs/
 !submit*.sh
 log.wxvx.*.out*
-!*.out
-!*.err
 !**/slurm/
 !**/outputs/
 **/training/outputs/
@@ -18,11 +16,27 @@ log.wxvx.*.out*
 *.zarr
 *.DS_Store
 *.npz
+*.tar
 *.tar.gz
 *Untitled*.ipynb
 *Copy*.ipynb
 *.pdf
+
+# Log files (slurm .out/.err, including suffixed variants like .out-16cores)
+*.log
+*.out
+*.out-*
+*.err
+*.err-*
+
+# Images
+*.png
 *.jpeg
+*.jpg
+
+# Any directory whose name contains "log" or "figure" (log/, logs/, eagle-logs/, figures-*/ ...)
+log*/
+figure*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

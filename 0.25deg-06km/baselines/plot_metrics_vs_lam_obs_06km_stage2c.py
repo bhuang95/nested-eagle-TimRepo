@@ -25,18 +25,19 @@ from niceplots import plot_surface_vars, plot_level_vars
 # In[5]:
 
 
-procdir= "/scratch4/BMC/gsienkf/Bo.Huang/expRuns/ML/nested-eagle/0.25deg-06km/production/"
-valortests = ["testing", "validation"]
+myprocdir="/pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/"
+timprocdir="/global/cfs/cdirs/m4718/timothys/nested-eagle/0.25deg-06km/"
+valortests = ["testing"]
 metrics = ["rmse", "mae"]
 
 for valortest in valortests:
     for metric in metrics:
         data = {}
 
-        data["NE-era5-gfs-hrrr 0.25\u00B0/06km"] = xr.load_dataset(f"{procdir}/era5-gfs-hrrr/stage2c/inference-{valortest}/obs-metrics/{metric}.convobs.nested-lam.nc", decode_timedelta=True)
-        data["NE-gfs-hrrr 0.25\u00B0/06km"] = xr.load_dataset(f"{procdir}/gfs-hrrr/stage1c/inference-{valortest}/obs-metrics/{metric}.convobs.nested-lam.nc", decode_timedelta=True)
-        data["HRRR"] = xr.load_dataset(f"{procdir}/baselines/hrrr-forecasts-vs-hrrr-analysis/trim25/obs-metrics-{valortest}/{metric}.convobs.lam.nc", decode_timedelta=True)
-        data["GFS"] = xr.load_dataset(f"{procdir}/baselines/gfs-forecasts-vs-hrrr-analysis/trim25/obs-metrics-{valortest}/{metric}.convobs.lam.nc", decode_timedelta=True)
+        data["NE-era5-gfs-hrrr 0.25\u00B0/06km"] = xr.load_dataset(f"{myprocdir}/era5-gfs-hrrr/stage2c/inference-{valortest}/obs-metrics/{metric}.convobs.nested-lam.nc", decode_timedelta=True)
+        data["NE-gfs-hrrr 0.25\u00B0/06km"] = xr.load_dataset(f"{timprocdir}/production/gfs-hrrr/stage1c/inference-{valortest}/obs-metrics/{metric}.convobs.nested-lam.nc", decode_timedelta=True)
+        data["HRRR"] = xr.load_dataset(f"{timprocdir}/baselines/hrrr-forecasts-vs-hrrr-analysis/trim25/obs-metrics-{valortest}/{metric}.convobs.lam.nc", decode_timedelta=True)
+        data["GFS"] = xr.load_dataset(f"{timprocdir}/baselines/gfs-forecasts-vs-hrrr-analysis/trim25/obs-metrics-{valortest}/{metric}.convobs.lam.nc", decode_timedelta=True)
 
         if metric == "rmse": 
             rmse = data
