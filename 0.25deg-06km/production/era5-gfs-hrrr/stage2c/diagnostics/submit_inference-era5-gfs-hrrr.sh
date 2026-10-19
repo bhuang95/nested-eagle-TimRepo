@@ -9,7 +9,7 @@
 #SBATCH --qos=regular
 #SBATCH --account=m4718
 #SBATCH --constraint='gpu&hbm80g'
-#SBATCH -t 2:00:00
+#SBATCH -t 1:00:00
 
 set -x
 
@@ -27,32 +27,12 @@ export SRUN_MPI=pmix
 # creating it up front is harmless and removes the race entirely.
 mkdir -p eagle-logs/inference
 
-echo "Start inference-testing"
-echo "$(date)"
-srun --mpi=${SRUN_MPI} eagle-tools inference inference.era5-gfs-hrrr-stage1a.yaml || { echo "FAILED inference-testing"; exit 1; }
-echo "$(date)"
-echo "Done inference-testing"
+stageids="era5-gfs-hrrr-stage2a_t2"
 
-echo "Start inference-validation"
-echo "$(date)"
-srun --mpi=${SRUN_MPI} eagle-tools inference inference.era5-gfs-hrrr-stage1b.yaml || { echo "FAILED inference-validation"; exit 1; }
-echo "$(date)"
-echo "Done inference-validation"
-
-echo "Start inference-validation"
-echo "$(date)"
-#srun --mpi=${SRUN_MPI} eagle-tools inference inference.era5-gfs-hrrr-stage2a.yaml || { echo "FAILED inference-validation"; exit 1; }
-echo "$(date)"
-echo "Done inference-validation"
-
-echo "Start inference-validation"
-echo "$(date)"
-#srun --mpi=${SRUN_MPI} eagle-tools inference inference.era5-gfs-hrrr-stage2b.yaml || { echo "FAILED inference-validation"; exit 1; }
-echo "$(date)"
-echo "Done inference-validation"
-
-echo "Start inference-validation"
-echo "$(date)"
-#srun --mpi=${SRUN_MPI} eagle-tools inference inference.era5-gfs-hrrr-stage2c.yaml || { echo "FAILED inference-validation"; exit 1; }
-echo "$(date)"
-echo "Done inference-validation"
+for stageid in ${stageids}; do
+    echo "$(date)"
+    echo "Start ${stageid}"
+    srun --mpi=${SRUN_MPI} eagle-tools inference inference.${stageid}.yaml || { echo "FAILED ${stageid}"; exit 1; }
+    echo "$(date)"
+    echo "Done ${stageid}"
+done

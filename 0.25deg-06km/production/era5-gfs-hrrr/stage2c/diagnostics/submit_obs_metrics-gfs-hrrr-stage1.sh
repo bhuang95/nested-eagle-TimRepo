@@ -22,7 +22,8 @@ conda activate eagle
 cd /global/u1/b/bhuang95/sorc/fromTim/era5-pretraining/nested-eagle-TimRepo/0.25deg-06km/production/era5-gfs-hrrr/stage2c/diagnostics
 logdir="eagle-logs/obs_metrics"
 diagdir="/pscratch/sd/b/bhuang95/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage2c/diagnostics/"
-stageids="gfs-hrrr-stage1a gfs-hrrr-stage1b gfs-hrrr-stage1c"
+#stageids="gfs-hrrr-stage1a gfs-hrrr-stage1b gfs-hrrr-stage1c"
+stageids="gfs-hrrr_bo-stage1a"
 
 # conda's Open MPI 5.x needs PMIx; the srun default (cray_shasta) hands it PMI1/2,
 # which silently starts N independent size-1 singletons instead of one N-rank job.

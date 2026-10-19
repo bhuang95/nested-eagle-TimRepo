@@ -246,7 +246,9 @@ system:
     truncation: null
     truncation_inv: null
     loss_matrices_path: null
-    warm_start: ${oc.decode:${oc.env:SCRATCH}}/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage1b/checkpoint/${training.fork_run_id}/last.ckpt
+    # RESTART: warm_start must be null - it takes precedence over run_id when locating the ckpt.
+    # Original (fresh run, see stage2a_t2_bo_1st.yaml): .../stage1b/checkpoint/${training.fork_run_id}/last.ckpt
+    warm_start: null
     lam_dataset: ${oc.decode:${oc.env:SCRATCH}}/nested-eagle/data/0.25deg-06km/data/hrrr.zarr
     global_dataset: ${oc.decode:${oc.env:SCRATCH}}/nested-eagle/data/0.25deg-06km/data/gfs.zarr
     latent_mesh: ${system.input.mesh_dir}/latent.o96.spongex1.combined.sorted.npz
@@ -468,10 +470,13 @@ training:
           nodes_name: ${graph.data}
           nodes_attribute_name: boundary_mask
           norm: null
-  run_id: null
-  fork_run_id: 61e40fefaa664a9c8261eb57063971c2
-  load_weights_only: true
-  transfer_learning: true
+  # RESTART of job 58829426 (TIMEOUT at epoch 072 / step 052998): full Lightning resume
+  # (weights + optimizer + LR schedule + step count) from stage2a_t2/checkpoint/<run_id>/last.ckpt.
+  # Fresh-run values: run_id null, fork_run_id 61e40fefaa664a9c8261eb57063971c2, load_weights_only true, transfer_learning true
+  run_id: 3bf770ae540c4d9eb055bd890890d0fe
+  fork_run_id: null
+  load_weights_only: false
+  transfer_learning: false
   deterministic: false
   precision: 16-mixed
   multistep_input: 2
@@ -556,7 +561,7 @@ training:
   max_steps: 60000
   lr:
     warmup: 1000
-    rate: 6.25e-06
+    rate: 3.125e-05
     iterations: ${training.max_steps}
     min: 3.0e-07
   submodules_to_freeze: []

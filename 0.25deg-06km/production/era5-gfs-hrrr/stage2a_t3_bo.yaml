@@ -383,10 +383,10 @@ model:
   output_mask:
     _target_: anemoi.training.utils.masks.NoOutputMask
   trainable_parameters:
-    data: 0
-    hidden: 0
-    data2hidden: 0
-    hidden2data: 0
+    data: 8
+    hidden: 8
+    data2hidden: 8
+    hidden2data: 8
   attributes:
     edges:
     - edge_length
@@ -555,8 +555,8 @@ training:
   max_epochs: null
   max_steps: 60000
   lr:
-    warmup: 1000
-    rate: 6.25e-05
+    warmup: 3000
+    rate: 3.125e-03  # effective max LR = 16 x rate = 5e-2
     iterations: ${training.max_steps}
     min: 3.0e-07
   submodules_to_freeze: []

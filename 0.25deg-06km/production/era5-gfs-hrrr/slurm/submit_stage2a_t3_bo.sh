@@ -11,7 +11,7 @@
 #SBATCH --account=m4718
 ##SBATCH --constraint=gpu&hbm80g
 #SBATCH --constraint=gpu
-#SBATCH -t 48:00:00
+#SBATCH -t 8:00:00
 
 # -----------------------------------------------------------------------------
 # Interactive (front terminal) test instead of sbatch:
@@ -42,7 +42,7 @@ conda activate eagle
 
 export NCCL_DEBUG=WARN
 export PYTHONFAULTHANDLER=1
-export LD_PRELOAD=$CONDA_PREFIX/lib/libjemalloc.so.2
+#export LD_PRELOAD=$CONDA_PREFIX/lib/libjemalloc.so.2
 
 cd /global/homes/b/bhuang95/sorc/fromTim/era5-pretraining/nested-eagle-TimRepo/0.25deg-06km/production/era5-gfs-hrrr/
 srun /global/u1/b/bhuang95/sorc/fromTim/anemoi/V20250603/anemoi-house/slurm2ddp.sh \

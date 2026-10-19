@@ -246,7 +246,7 @@ system:
     truncation: null
     truncation_inv: null
     loss_matrices_path: null
-    warm_start: ${oc.decode:${oc.env:SCRATCH}}/nested-eagle/0.25deg-06km/production/era5-gfs-hrrr/stage1b/checkpoint/${training.fork_run_id}/last.ckpt
+    warm_start: null
     lam_dataset: ${oc.decode:${oc.env:SCRATCH}}/nested-eagle/data/0.25deg-06km/data/hrrr.zarr
     global_dataset: ${oc.decode:${oc.env:SCRATCH}}/nested-eagle/data/0.25deg-06km/data/gfs.zarr
     latent_mesh: ${system.input.mesh_dir}/latent.o96.spongex1.combined.sorted.npz
@@ -468,10 +468,10 @@ training:
           nodes_name: ${graph.data}
           nodes_attribute_name: boundary_mask
           norm: null
-  run_id: null
-  fork_run_id: 61e40fefaa664a9c8261eb57063971c2
-  load_weights_only: true
-  transfer_learning: true
+  run_id: 94e381bca95a4a94adccfef8f8ba42c9
+  fork_run_id: null
+  load_weights_only: false
+  transfer_learning: false
   deterministic: false
   precision: 16-mixed
   multistep_input: 2

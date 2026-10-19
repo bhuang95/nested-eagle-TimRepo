@@ -10,7 +10,7 @@ eagle-logs/
 !submit*.sh
 log.wxvx.*.out*
 !**/slurm/
-!**/outputs/
+**/outputs/
 **/training/outputs/
 *.nc
 *.zarr

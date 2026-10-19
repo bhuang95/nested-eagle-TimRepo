@@ -9,7 +9,7 @@
 #SBATCH --qos=regular
 #SBATCH --account=m4718
 #SBATCH --constraint='gpu&hbm80g'
-#SBATCH -t 4:00:00
+#SBATCH -t 2:00:00
 
 set -x
 
@@ -27,7 +27,8 @@ export SRUN_MPI=pmix
 # creating it up front is harmless and removes the race entirely.
 mkdir -p eagle-logs/inference
 
-stageids="gfs-hrrr-stage1a gfs-hrrr-stage1b gfs-hrrr-stage1c"
+#stageids="gfs-hrrr-stage1a gfs-hrrr-stage1b gfs-hrrr-stage1c"
+stageids="gfs-hrrr_bo-stage1a"
 
 for stageid in ${stageids}; do
     echo "$(date)"
